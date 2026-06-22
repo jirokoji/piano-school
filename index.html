@@ -1,1153 +1,763 @@
-<!DOCTYPE html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>こいし音楽教室</title>
-<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300&family=Zen+Kaku+Gothic+New:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --white: #FDFBF8;        /* 背景 */
-    --bg-light: #FDFBF8;     /* コンセプト・料金・ギャラリー・FAQ */
-    --bg-mid: #EDE8E0;       /* レッスン・講師・生徒の声・アクセス */
-    --cream: #FDFBF8;
-
-    --brown-dark: #3A3228;   /* 見出し・CTA背景 */
-    --brown-mid: #6C6251;    /* 本文 */
-    --brown-light: #FDFBF8;  /* CTA見出し */
-
-    --terra: #96B4A6;        /* ボタン①アクセント */
-    --terra-dark: #3A3228;
-    --terra-light: #96B4A6;
-    --terra-pale: #EDE8E0;
-
-    --brown: #3A3228;
-    --gray: #6C6251;
-    --black: #3A3228;
-    
-    --font-display: 'Raleway', sans-serif;
-    --font-body: 'Meiryo', '游ゴシック', 'Yu Gothic', 'Hiragino Kaku Gothic ProN', sans-serif;
+  :root{
+    --header-footer-bg:#6B5C5B;
+    --header-footer-text:#FFFFFF;
+    --hero-text:#2B2B2B;
+    --accent:#C1978A;
+    --white:#FFFFFF;
+    --offwhite:#FFFEF9;
+    --text-soft:#6C6059;
+    --text-soft2:#6C6059;
+    --line:#E5E2DF;
+    --serif: "Shippori Mincho", serif;
+    --sans: "Zen Kaku Gothic New", sans-serif;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--sans);
+    color:var(--text-soft);
+    line-height:1.9;
+    -webkit-font-smoothing:antialiased;
+    background:var(--offwhite);
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit; text-decoration:none;}
 
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--white);
-    color: var(--brown);
-    font-family: var(--font-body);
-    font-weight: 300;
-    overflow-x: hidden;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.5rem 3rem;
-    background: rgba(255,253,250,0.93);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(101,67,33,0.12);
-  }
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    color: var(--terra);
-  }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--gray);
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--terra); }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-bg-photo {
-    position: absolute;
-    top: -20px; left: -20px; right: -20px; bottom: -20px;
-    z-index: 0;
-    background-image: url('images/3802.jpg');
-    background-size: cover;
-    background-position: center;
-    -webkit-filter: blur(8px);
-    filter: blur(8px);
-    -webkit-transform: scale(1.05);
-    transform: scale(1.05);
-  }
-  .hero-bg-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: rgba(255,253,250,0.6);
-  }
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 4rem 4rem 5rem;
-    position: relative;
-    z-index: 2;
-  }
-  .hero-tag {
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: #5B3F2E;
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.3s;
-  }
-  .hero-title {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 300;
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    color: #5B3F2E;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.5s;
-  }
-  .hero-title em {
-    font-style: italic;
-    color: #C97A40;
-    display: block;
-  }
-  .hero-subtitle {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: #5B3F2E;
-    margin-bottom: 3rem;
-    line-height: 2;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.7s;
-  }
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 2rem;
-    border: 1px solid #5B3F2E;
-    color: #5B3F2E;
-    text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    transition: all 0.4s;
-    width: fit-content;
-    opacity: 0;
-    animation: fadeUp 0.8s ease forwards 0.9s;
-  }
-  .hero-cta:hover {
-    background: #5B3F2E;
-    color: var(--white);
-  }
-  .hero-cta::after { content: '→'; }
-
-  .hero-right { position: relative; overflow: hidden; }
-  .hero-image-bg {
-    position: absolute; inset: 0;
-    background: linear-gradient(135deg, #93471b 0%, #61311b 50%, #3C2F2F 100%);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .piano-visual {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center; overflow: hidden;
-  }
-  .piano-keys-art {
-    display: flex; gap: 3px; height: 300px; align-items: flex-end;
-    opacity: 0.2; transform: rotate(-15deg) translateX(40px);
-  }
-  .key-white {
-    width: 28px; height: 100%;
-    background: linear-gradient(to bottom, #f5ede6, #fff8f5);
-    border-radius: 0 0 4px 4px;
-  }
-  .key-black {
-    width: 18px; height: 65%; background: #2a0a04;
-    border-radius: 0 0 3px 3px; margin: 0 -9px; z-index: 1; position: relative;
-  }
-  .hero-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to right, #FFFDFA 0%, transparent 40%);
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 24px;
   }
 
-  /* SCROLL LINE */
-  .scroll-line {
-    position: absolute; bottom: 3rem; left: 5rem;
-    display: flex; align-items: center; gap: 1rem;
-    font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
-    color: #5B3F2E; opacity: 0; animation: fadeUp 0.8s ease forwards 1.2s;
+  .section-title{
+    font-family:var(--serif);
+    font-size:1.5rem;
+    font-weight:600;
+    letter-spacing:0.04em;
+    margin-bottom:2.5rem;
+    position:relative;
+    text-align:left;
   }
-  .scroll-line::before {
-    content: ''; display: block; width: 40px; height: 1px;
-    background: #C97A40;
-    animation: expandLine 1s ease forwards 1.5s;
-    transform-origin: left; transform: scaleX(0);
-  }
-  @keyframes expandLine { to { transform: scaleX(1); } }
-
-  /* CONCEPT */
-  .section { padding: 8rem 5rem; }
-  .section-label {
-    font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
-    color: #C97A40; margin-bottom: 1.5rem;
-  }
-  .concept {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 6rem; align-items: center;
-    background: #F4F2EC;
-  }
-  .concept-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    font-weight: 400;
-    line-height: 1.4;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.02em;
-    color: #5B3F2E;
-  }
-  .concept-text h2 em { font-style: normal; color: #5B3F2E; }
-  .concept-text p {
-    font-size: 0.85rem; line-height: 2.2;
-    color: #6A4A36; margin-bottom: 1.5rem;
-  }
-  .concept .section-label { color: #C97A40; }
-  .concept-stats {
-    display: flex; flex-direction: column; gap: 2rem; padding: 3rem;
-    border: 1px solid rgba(91,63,46,0.2);
-  }
-  .stat-item { border-bottom: 1px solid rgba(91,63,46,0.12); padding-bottom: 2rem; }
-  .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
-  .stat-num {
-    font-family: var(--font-display); font-size: 2rem;
-    font-weight: 300; color: #5B3F2E; line-height: 1.2;
-  }
-  .stat-label {
-    font-size: 0.7rem; letter-spacing: 0.2em;
-    color: #6A4A36; margin-top: 0.3rem; text-transform: uppercase;
+  .section-title::after{
+    content:"";
+    display:block;
+    width:36px;
+    height:2px;
+    background:var(--accent);
+    margin-top:0.9rem;
   }
 
-  /* LESSON */
-  .lesson { background: #D1C7B8; }
-  .lesson h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300;
-    margin-bottom: 4rem; letter-spacing: -0.01em; color: #5B3F2E;
+  /* ===== ヘッダー ===== */
+  header{
+    background:var(--header-footer-bg);
+    color:var(--header-footer-text);
+    position:sticky;
+    top:0;
+    z-index:100;
   }
-  .lesson-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: rgba(101,67,33,0.12);
+  .header-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:18px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
   }
-  .lesson-card {
-    background: #D1C7B8;
-    padding: 3rem 2.5rem;
-    transition: background 0.4s;
+  .logo{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    letter-spacing:0.06em;
   }
-  .lesson-card:hover { background: #c4b8a6; }
-  .lesson-num {
-    font-family: var(--font-display);
-    font-size: 0.85rem;
-    color: #C97A40;
-    letter-spacing: 0.2em;
-    margin-bottom: 1.5rem;
+  .menu-btn{
+    width:32px; height:24px;
+    position:relative;
+    cursor:pointer;
+    background:none;
+    border:none;
+    z-index:101;
   }
-  .lesson-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
-    color: #5B3F2E;
+  .menu-btn span{
+    display:block;
+    position:absolute;
+    height:2px;
+    width:100%;
+    background:#fff;
+    left:0;
+    transition:0.3s;
   }
-  .lesson-card p {
-    font-size: 0.8rem;
-    line-height: 2;
-    color: #6A4A36;
+  .menu-btn span:nth-child(1){top:2px;}
+  .menu-btn span:nth-child(2){top:11px;}
+  .menu-btn span:nth-child(3){top:20px;}
+  .menu-btn.open span:nth-child(1){top:11px; transform:rotate(45deg);}
+  .menu-btn.open span:nth-child(2){opacity:0;}
+  .menu-btn.open span:nth-child(3){top:11px; transform:rotate(-45deg);}
+
+  .nav-panel{
+    position:fixed;
+    top:0; right:0;
+    width:min(78vw, 320px);
+    height:100vh;
+    background:var(--header-footer-bg);
+    transform:translateX(100%);
+    transition:transform 0.35s ease;
+    z-index:99;
+    padding:90px 32px 32px;
   }
-  .lesson-detail {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1.5rem;
+  .nav-panel.open{transform:translateX(0);}
+  .nav-panel a{
+    display:block;
+    color:#fff;
+    font-family:var(--serif);
+    font-size:1rem;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,0.15);
   }
-  .tag {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    padding: 0.3rem 0.8rem;
-    border: 1px solid rgba(91,63,46,0.3);
-    color: #5B3F2E;
-    text-transform: uppercase;
+  .overlay{
+    position:fixed; inset:0;
+    background:rgba(0,0,0,0.35);
+    z-index:98;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.3s;
+  }
+  .overlay.open{opacity:1; pointer-events:auto;}
+
+  /* ===== ヒーロー ===== */
+  .hero{
+    min-height:88vh;
+    background:#dcd5cd url('images/hero.jpg') center/cover no-repeat;
+    display:flex;
+    align-items:center;
+    padding:0 24px;
+    position:relative;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(255,254,249,0.72) 0%, rgba(255,254,249,0.25) 55%, rgba(255,254,249,0.05) 100%);
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:1080px;
+    margin:0 auto;
+    width:100%;
+  }
+  .hero h1{
+    font-family:var(--serif);
+    color:var(--hero-text);
+    font-size:clamp(2rem, 5vw, 3.1rem);
+    font-weight:600;
+    line-height:1.55;
+    letter-spacing:0.02em;
+    margin-bottom:2.2rem;
+  }
+  .btn{
+    display:inline-block;
+    background:#E4C1B5;
+    color:var(--hero-text);
+    font-family:var(--serif);
+    padding:16px 34px;
+    border-radius:2px;
+    font-size:0.95rem;
+    letter-spacing:0.05em;
+    transition:opacity 0.25s, transform 0.25s;
+  }
+  .btn:hover{opacity:0.85; transform:translateY(-2px);}
+
+  section{padding:88px 0;}
+  .bg-white{background:var(--white);}
+  .bg-off{background:var(--offwhite);}
+
+  /* コンセプト */
+  .concept p.lead{
+    font-family:var(--serif);
+    font-size:1.4rem;
+    line-height:1.85;
+    margin-bottom:1.8rem;
+    color:var(--text-soft);
+  }
+  .concept p.body{
+    max-width:620px;
+    font-size:0.98rem;
+    line-height:2.1;
   }
 
-  /* PRICE */
-  .price { background: #F4F2EC; }
-  .price h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-    margin-bottom: 4rem;
-    color: #5B3F2E;
+  /* 写真＋一文 */
+  .photo-quote{
+    padding:88px 0;
   }
-  .price-block {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+  .photo-quote-inner{
+    display:grid;
+    grid-template-columns:minmax(220px, 360px) 1fr;
+    align-items:center;
+    gap:64px;
   }
-  .price-group h3 {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: #5B3F2E;
-    margin-bottom: 0.6rem;
-    letter-spacing: 0.05em;
+  .photo-quote-img{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    justify-self:start;
+    border-radius:4px;
+    box-shadow:0 14px 34px rgba(107,92,91,0.14);
   }
-  .price-group-desc {
-    font-size: 0.78rem;
-    color: #6A4A36;
-    line-height: 1.8;
-    margin-bottom: 1.5rem;
+  .photo-quote-text{
+    padding-right:24px;
   }
-  .price-tbl {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .price-tbl thead tr {
-    border-bottom: 1px solid #C97A40;
-  }
-  .price-tbl th {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: #C97A40;
-    text-transform: uppercase;
-    padding: 0.5rem 1rem 0.8rem;
-    text-align: left;
-    font-weight: 400;
-  }
-  .price-tbl tbody tr {
-    height: 3.2rem;
-  }
-  .price-tbl td {
-    padding: 0.8rem 1rem;
-    font-size: 0.85rem;
-    color: #5B3F2E;
-    border-bottom: 1px solid rgba(91,63,46,0.1);
-    vertical-align: middle;
-    font-family: var(--font-body);
-  }
-  .price-tbl td:last-child {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 300;
-    text-align: right;
-  }
-  .price-tbl td:last-child span {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    color: #6A4A36;
-    margin-left: 0.2rem;
-  }
-  .price-tbl tbody tr:hover td { background: rgba(91,63,46,0.04); }
-
-  /* TEACHER */
-  .teacher {
-    background: #D1C7B8;
-    padding: 6rem 5rem;
-  }
-  .teacher-inner {
-    max-width: 800px;
-  }
-  .teacher-text h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3vw, 2.8rem);
-    font-weight: 300;
-    margin-bottom: 0.5rem;
-    color: #5B3F2E;
-  }
-  .teacher-text .teacher-name-en {
-    font-family: var(--font-display);
-    font-style: italic;
-    color: #C97A40;
-    font-size: 1rem;
-    margin-bottom: 2rem;
-    letter-spacing: 0.1em;
-  }
-  .teacher-text p {
-    font-size: 0.85rem;
-    line-height: 2.2;
-    color: #6A4A36;
-    margin-bottom: 1rem;
-  }
-  .teacher .section-label { color: #C97A40; }
-  .teacher-career {
-    list-style: none;
-    margin-top: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  .teacher-career li {
-    font-size: 0.82rem;
-    color: #6A4A36;
-    padding-left: 1.2rem;
-    position: relative;
-    line-height: 1.6;
-  }
-  .teacher-career li::before {
-    content: '—';
-    position: absolute;
-    left: 0;
-    color: #C97A40;
+  .photo-quote-text p{
+    font-family:var(--serif);
+    font-size:clamp(1.3rem,3vw,1.9rem);
+    line-height:2;
+    letter-spacing:0.02em;
   }
 
-  /* GALLERY */
-  .gallery { background: #F4F2EC; }
-  .gallery h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-    margin-bottom: 3rem;
-    color: #5B3F2E;
+  /* レッスン内容 */
+  .lesson-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
   }
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 250px 250px;
-    gap: 4px;
+  .lesson-box{
+    background:var(--white);
+    border:1px solid var(--line);
+    padding:36px 32px;
   }
-  .gallery-item {
-    background: #D1C7B8;
-    overflow: hidden;
-    position: relative;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    min-height: 250px;
+  .lesson-box h3{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    margin-bottom:1.2rem;
+    color:var(--text-soft);
   }
-  .gallery-item:first-child { grid-row: 1 / 3; min-height: 504px; }
-  .gallery-item::after {
-    content: attr(data-label);
-    position: absolute;
-    bottom: 1rem;
-    left: 1rem;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    color: rgba(91,63,46,0.5);
-    text-transform: uppercase;
-  }
-  .gallery-placeholder {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: rgba(182,141,64,0.4);
-    font-style: italic;
-    text-align: center;
-    padding: 1rem;
+  .lesson-box p{font-size:0.92rem;}
+  .lesson-tag{
+    display:inline-block;
+    margin-top:1.4rem;
+    font-size:0.8rem;
+    letter-spacing:0.04em;
+    color:var(--accent);
+    border-top:1px solid var(--line);
+    padding-top:1rem;
+    width:100%;
   }
 
-  /* VOICE */
-  .voice { background: #D1C7B8; }
-  .voice h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-    margin-bottom: 4rem;
-    color: #5B3F2E;
+  /* 生徒の声 */
+  .voice-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:28px;
   }
-  .voice-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+  .voice-card{
+    background:var(--white);
+    padding:34px 32px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    box-shadow:0 4px 18px rgba(107,92,91,0.06);
+    transition:box-shadow 0.25s, transform 0.25s;
   }
-  .voice-card {
-    padding: 2.5rem;
-    border-left: 2px solid rgba(91,63,46,0.2);
-    transition: border-color 0.3s;
+  .voice-card:hover{
+    box-shadow:0 8px 26px rgba(107,92,91,0.1);
+    transform:translateY(-2px);
   }
-  .voice-card:hover { border-color: var(--terra); }
-  .voice-author {
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: #C97A40;
-    text-transform: uppercase;
-    margin-bottom: 0.8rem;
+  .voice-name{
+    font-family:var(--serif);
+    font-size:1rem;
+    margin-bottom:0.6rem;
   }
-  .voice-title {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    font-weight: 400;
-    color: #5B3F2E;
-    line-height: 1.5;
-    margin-bottom: 1.2rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(91,63,46,0.15);
+  .voice-heading{
+    display:inline-block;
+    font-size:0.85rem;
+    color:var(--accent);
+    margin-bottom:1rem;
+    letter-spacing:0.02em;
   }
-  .voice-card p {
-    font-size: 0.82rem;
-    line-height: 2;
-    color: #6A4A36;
-    margin-bottom: 0;
+  .voice-card p.body{font-size:0.9rem; white-space:pre-line;}
+
+  /* 講師プロフィール */
+  .profile{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    gap:40px;
+    align-items:start;
+  }
+  .profile-photo{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    background:var(--line);
+  }
+  .profile-photo-placeholder{
+    width:100%;
+    aspect-ratio:3/4;
+    background:var(--offwhite);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .profile-photo-placeholder span{
+    font-family:var(--serif);
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:var(--accent);
+  }
+  .profile-name{
+    font-family:var(--serif);
+    font-size:1.3rem;
+    margin-bottom:1.2rem;
+  }
+  .profile-name span{
+    display:block;
+    font-size:0.8rem;
+    color:var(--accent);
+    margin-top:0.3rem;
+    letter-spacing:0.05em;
+  }
+  .profile-lead{margin-bottom:1.6rem; font-size:0.95rem;}
+  .profile-history{
+    border-top:1px solid var(--line);
+    padding-top:1.6rem;
+    font-size:0.88rem;
+  }
+  .history-label{
+    font-family:var(--serif);
+    margin-bottom:1rem;
+    color:var(--text-soft);
+  }
+  .history-block{
+    border-left:2px solid var(--accent);
+    padding-left:1.4rem;
+  }
+  .history-block .history-line{
+    line-height:1.9;
+    margin:0;
+  }
+  .history-awards{
+    list-style:none;
+    margin-top:0.4rem;
+  }
+  .history-awards li{
+    line-height:1.9;
+    position:relative;
+    padding-left:1.3rem;
+  }
+  .history-awards li::before{
+    content:"✦";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+    font-size:0.75rem;
+  }
+
+  /* 料金 */
+  .price-block{margin-bottom:48px;}
+  .price-block:last-child{margin-bottom:0;}
+  .price-box{
+    background:var(--white);
+    padding:34px 36px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    box-shadow:0 4px 18px rgba(107,92,91,0.06);
+  }
+  .price-box h3{
+    font-family:var(--serif);
+    font-size:1.1rem;
+    margin-bottom:0.8rem;
+  }
+  .price-box p.note{font-size:0.9rem; margin-bottom:1.4rem;}
+  table.price-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:0.92rem;
+  }
+  table.price-table th, table.price-table td{
+    text-align:left;
+    padding:13px 8px;
+    border-bottom:1px solid var(--line);
+  }
+  table.price-table tr:last-child td{border-bottom:none;}
+  table.price-table th{
+    font-family:var(--serif);
+    font-weight:500;
+    color:var(--accent);
+    font-size:0.82rem;
+    letter-spacing:0.04em;
+  }
+
+  /* 写真ギャラリー */
+  .gallery-single{
+    max-width:640px;
+    margin:0 auto;
+  }
+  .gallery-single img{
+    width:100%;
+    height:auto;
+    max-height:70vh;
+    object-fit:cover;
+    border-radius:4px;
+    box-shadow:0 14px 34px rgba(107,92,91,0.14);
   }
 
   /* FAQ */
-  .faq { background: #F4F2EC; }
-  .faq h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-    margin-bottom: 3rem;
-    color: #5B3F2E;
+  .faq-item{
+    background:var(--white);
+    padding:28px 32px;
+    margin-bottom:16px;
+    border-radius:6px;
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    box-shadow:0 4px 16px rgba(107,92,91,0.05);
   }
-  .faq-list { max-width: 800px; }
-  .faq-item {
-    border-bottom: 1px solid rgba(91,63,46,0.12);
-    padding: 2rem 0;
-    cursor: pointer;
+  .faq-item:last-child{margin-bottom:0;}
+  .faq-q{
+    font-family:var(--serif);
+    font-size:1.02rem;
+    margin-bottom:0.8rem;
+    position:relative;
+    padding-left:1.6rem;
   }
-  .faq-q {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #5B3F2E;
+  .faq-q::before{
+    content:"Q";
+    position:absolute;
+    left:0; top:-2px;
+    color:var(--accent);
+    font-family:var(--serif);
+    font-weight:700;
   }
-  .faq-q::after { content: '+'; color: #C97A40; font-size: 1.2rem; flex-shrink: 0; margin-left: 1rem; }
-  .faq-a {
-    font-size: 0.8rem;
-    line-height: 2;
-    color: #6A4A36;
-    margin-top: 1rem;
-    display: none;
+  .faq-a{
+    font-size:0.92rem;
+    padding-left:1.6rem;
+    position:relative;
   }
-  .faq-item.open .faq-q::after { content: '—'; }
-  .faq-item.open .faq-a { display: block; }
-
-  /* ACCESS */
-  .access { background: #D1C7B8; }
-  .access h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 300;
-    margin-bottom: 3rem;
-    color: #5B3F2E;
-  }
-  .access-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-  .access-info dt {
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    color: #C97A40;
-    text-transform: uppercase;
-    margin-bottom: 0.5rem;
-    margin-top: 1.5rem;
-  }
-  .access-info dt:first-child { margin-top: 0; }
-  .access-info dd {
-    font-size: 0.85rem;
-    line-height: 1.8;
-    color: #6A4A36;
-  }
-  .map-placeholder {
-    background: var(--cream);
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgba(182,141,64,0.2);
-    color: rgba(91,63,46,0.4);
-    font-family: var(--font-display);
-    font-size: 1rem;
-    letter-spacing: 0.2em;
+  .faq-a::before{
+    content:"A";
+    position:absolute;
+    left:0; top:0;
+    color:var(--text-soft);
+    opacity:0.45;
+    font-family:var(--serif);
+    font-weight:700;
   }
 
-  /* CONTACT */
-  .contact {
-    background: #5B3F2E;
-    text-align: center;
-    padding: 8rem 5rem;
-    color: #FFFDFA;
+  /* アクセス */
+  .access-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    margin-bottom:48px;
   }
-  .contact .section-label { display: block; margin-bottom: 1rem; color: #F4F2EC; }
-  .contact h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 300;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
-    color: #FFFDFA;
+  .access-card h3{
+    font-family:var(--serif);
+    font-size:1.05rem;
+    margin-bottom:1rem;
   }
-  .contact h2 em { font-style: italic; color: #F4F2EC; }
-  .contact p {
-    font-size: 0.85rem;
-    color: rgba(244,242,236,0.8);
-    line-height: 2;
-    margin-bottom: 3rem;
+  .access-card p{font-size:0.92rem; margin-bottom:0.3rem;}
+  .contact-block{
+    border-top:1px solid var(--line);
+    padding-top:32px;
   }
-  .contact-btns {
-    display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .btn-gold {
-    padding: 1.1rem 2.5rem;
-    background: #C97A40;
-    color: #FFFDFA;
-    text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    transition: all 0.3s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.7rem;
-  }
-  .btn-gold:hover { background: #b56a30; }
-  .btn-outline {
-    padding: 1.1rem 2.5rem;
-    border: 1px solid rgba(235,224,198,0.5);
-    background: #D1C7B8;
-    color: #5B3F2E;
-    text-decoration: none;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    transition: all 0.4s;
-  }
-  .btn-outline:hover { background: #d9cdb5; }
-
-  /* FOOTER */
-  footer {
-    background: #3C2F2F;
-    padding: 3rem 5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid rgba(101,67,33,0.4);
-  }
-  .footer-logo {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: #F8F6F2;
-    letter-spacing: 0.15em;
-  }
-  .footer-copy {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: rgba(235,224,198,0.35);
+  .contact-block h3{
+    font-family:var(--serif);
+    font-size:1.05rem;
+    margin-bottom:1rem;
   }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  /* CTA */
+  .cta{
+    text-align:center;
+  }
+  .cta-buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
   }
 
-  /* HAMBURGER */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-    background: none;
-    border: none;
-    z-index: 200;
+  /* フッター */
+  footer{
+    background:var(--header-footer-bg);
+    color:var(--header-footer-text);
+    text-align:center;
+    padding:48px 24px 32px;
   }
-  .hamburger span {
-    display: block;
-    width: 24px;
-    height: 1.5px;
-    background: var(--terra);
-    transition: all 0.3s;
-    transform-origin: center;
-  }
-  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; }
-  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  footer p{font-size:0.85rem; margin-top:0.6rem; opacity:0.85;}
+  footer .footer-logo{font-family:var(--serif); font-size:1.1rem; letter-spacing:0.05em;}
 
-  /* MOBILE MENU */
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: var(--white);
-    z-index: 150;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2.5rem;
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.15em;
-    color: var(--brown);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .mobile-menu a:hover { color: var(--terra); }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    nav { padding: 1.2rem 1.5rem; }
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { display: none; }
-    .hero-left { padding: 7rem 1.5rem 4rem; }
-    .section { padding: 4rem 1.5rem; }
-    .concept { grid-template-columns: 1fr; gap: 2rem; padding: 4rem 1.5rem; }
-    .teacher { grid-template-columns: 1fr; }
-    .teacher-img-side { min-height: 250px; }
-    .teacher-text { padding: 3rem 1.5rem; }
-    .access-content { grid-template-columns: 1fr; gap: 2rem; }
-    .lesson-grid { grid-template-columns: 1fr; }
-    .price-block { grid-template-columns: 1fr; gap: 3rem; }
-    .voice-grid { grid-template-columns: 1fr; }
-    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-    .gallery-item:first-child { grid-row: auto; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
-    .contact { padding: 5rem 1.5rem; }
-    .contact-btns { flex-direction: column; align-items: center; }
-    .hero-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+  /* ===== モバイル ===== */
+  @media (max-width:768px){
+    section{padding:64px 0;}
+    .hero{min-height:80vh;}
+    .hero::before{background:linear-gradient(180deg, rgba(255,254,249,0.55) 0%, rgba(255,254,249,0.35) 60%, rgba(255,254,249,0.15) 100%);}
+    .lesson-grid, .voice-grid, .access-grid{grid-template-columns:1fr;}
+    .photo-quote-inner{grid-template-columns:1fr; gap:32px;}
+    .photo-quote-img{max-width:240px; justify-self:center;}
+    .photo-quote-text{text-align:center; padding-right:0;}
+    .profile{grid-template-columns:1fr;}
+    .profile-photo{max-width:140px;}
+    .gallery-single{max-width:100%;}
+    .cta-buttons{flex-direction:column; align-items:center;}
   }
 </style>
 </head>
 <body>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#concept" onclick="closeMobileMenu()">コンセプト</a>
-  <a href="#lesson" onclick="closeMobileMenu()">レッスン</a>
-  <a href="#price" onclick="closeMobileMenu()">料金</a>
-  <a href="#teacher" onclick="closeMobileMenu()">講師</a>
-  <a href="#voice" onclick="closeMobileMenu()">生徒の声</a>
-  <a href="#contact" onclick="closeMobileMenu()">体験申込</a>
-</div>
+<header>
+  <div class="header-inner">
+    <div class="logo">こいし音楽教室</div>
+    <button class="menu-btn" id="menuBtn" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">こいし音楽教室</div>
-  <ul class="nav-links">
-    <li><a href="#concept">コンセプト</a></li>
-    <li><a href="#lesson">レッスン</a></li>
-    <li><a href="#price">料金</a></li>
-    <li><a href="#teacher">講師</a></li>
-    <li><a href="#voice">生徒の声</a></li>
-    <li><a href="#contact">体験申込</a></li>
-  </ul>
-  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
+<div class="overlay" id="overlay"></div>
+<nav class="nav-panel" id="navPanel">
+  <a href="#concept">コンセプト</a>
+  <a href="#lesson">レッスン内容</a>
+  <a href="#voice">生徒の声</a>
+  <a href="#profile">講師プロフィール</a>
+  <a href="#price">料金</a>
+  <a href="#faq">FAQ</a>
+  <a href="#access">アクセス</a>
+  <a href="#cta">お問い合わせ</a>
 </nav>
 
-<!-- HERO -->
+<!-- ヒーロー -->
 <section class="hero">
-  <div class="hero-bg-photo"></div>
-  <div class="hero-bg-overlay"></div>
-  <div class="hero-left">
-    <p class="hero-tag">こいし音楽教室</p>
-    <h1 class="hero-title">
-      一人ひとりの"できた"を<em>丁寧に育てます。</em>
-    </h1>
-
-    <a href="#contact" class="hero-cta">体験レッスン予約</a>
-    <div class="scroll-line">Scroll</div>
+  <div class="hero-content">
+    <h1>一人ひとりの<br>"できた"を、<br>丁寧に育てます。</h1>
+    <a href="#cta" class="btn">体験レッスン予約</a>
   </div>
-  <div class="hero-right">
-    <div class="hero-image-bg">
-      <div class="piano-visual">
-        <div class="piano-keys-art">
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
-          <div class="key-black"></div>
-          <div class="key-white"></div>
+</section>
+
+<!-- コンセプト -->
+<section class="bg-white concept" id="concept">
+  <div class="wrap">
+    <p class="lead">基礎をひとつずつ、<br>響きを深める</p>
+    <p class="body">どんな動きがどんな音につながるのか、一人ひとりに合わせてヒントを見つけ、<br>基礎をひとつずつ積み上げていきます。<br>レッスンは一方通行ではなく、探求を共有する時間。<br>音楽と向き合い、響きを深めていきます。</p>
+  </div>
+</section>
+
+<!-- 写真＋一文 -->
+<section class="photo-quote" style="background:#FFFEF9;">
+  <div class="wrap photo-quote-inner">
+    <img class="photo-quote-img" src="images/concept.jpg" alt="">
+    <div class="photo-quote-text">
+      <p>その「できた」が、<br>少しずつ<br>自信に変わっていく。</p>
+    </div>
+  </div>
+</section>
+
+<!-- レッスン内容 -->
+<section class="bg-white" id="lesson">
+  <div class="wrap">
+    <div class="section-title">レッスン内容</div>
+    <div class="lesson-grid">
+      <div class="lesson-box">
+        <h3>月謝制</h3>
+        <p>年間45回のレッスンコース。毎週決まったペースで通い、基礎から表現までを積み重ねていきます。練習の方向性や課題を一緒に整理しながら、音の変化を継続的に育てていきます。</p>
+        <span class="lesson-tag">年間45回／継続受講</span>
+      </div>
+      <div class="lesson-box">
+        <h3>1レッスン制</h3>
+        <p>都度予約、または月ごとの予約制。毎週通えない方、受験期などで回数を調整したい方、生活リズムに合わせたい方におすすめ。つまずいている部分への集中レッスンにも対応。</p>
+        <span class="lesson-tag">都度予約／柔軟対応</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 生徒・保護者様の声 -->
+<section class="bg-off" id="voice">
+  <div class="wrap">
+    <div class="section-title">生徒・保護者様の声</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <p class="voice-name">Mさん（小学1年生）保護者様</p>
+        <span class="voice-heading">自分から音楽に向かう姿勢と、気持ちの変化</span>
+        <p class="body">練習中の曲を楽譜通りに弾くだけではなく、自分なりに抑揚をつけてみたり、強弱をつけてみたり、いろいろ試して楽しんでいます。以前は声をかけないと練習できませんでしたが、最近は自分から練習するように。時には朝学校に行く前にも練習しています。
+
+レッスンを始めたばかりの頃は、うまく弾けないときにイライラして落ち込んでいましたが、何度も経験することで、つらい時期があっても乗り越えられると思えるようになりました。先生からの気持ちの切り替え方のアドバイスで、ピアノ以外のことでも前向きに考えられるようになってきました！</p>
+      </div>
+      <div class="voice-card">
+        <p class="voice-name">Mさん（小学2年生）保護者様</p>
+        <span class="voice-heading">試行錯誤から、前に進む力へ</span>
+        <p class="body">普段聴いている音楽を音階をつけて歌ってみたり、学校の音楽の授業にも自信を持って取り組んでいると先生から聞くことがあり、音楽を楽しんでいる様子がうかがえて嬉しく思っています。
+
+以前は上手く弾けないところがあると悔しくて泣いてしまうこともありましたが、今では「レッスンの時に先生に教えてもらおう」と気持ちを切り替えられるようになりました。思うようにいかない時でも、次に弾いてみたい曲という目標ができたことで、「今はそのためのステップなんだ」と前向きに捉え、チャレンジし続けられるようになってきました。</p>
+      </div>
+      <div class="voice-card">
+        <p class="voice-name">Iさん（中学2年生）</p>
+        <span class="voice-heading">楽譜を読むだけだった演奏から、自分の感じる音楽へ</span>
+        <p class="body">前は、楽譜をただ読んでいるだけのような弾き方だったけど、音楽の感じ方が変わり、自分の中で感じる音楽を弾きたいと思うようになった。新しい視点をもって、新しい練習方法や弾き方にチャレンジしてみようと思うようになった。音楽の表現の幅や、音色の幅が広がったと思う。</p>
+      </div>
+      <div class="voice-card">
+        <p class="voice-name">Jさん（高校2年生）</p>
+        <span class="voice-heading">やりたい表現に、自分で近づけるように</span>
+        <p class="body">自分がやりたい表現に近づけられるようになった。左手のメロディが好きになった。他の人の演奏を聞いたり、あえてテンポを下げて弾いてみる、という練習方法も身についた。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 講師プロフィール -->
+<section class="bg-white" id="profile">
+  <div class="wrap">
+    <div class="section-title">講師プロフィール</div>
+    <div class="profile">
+      <div class="profile-photo-placeholder"><span>Coming<br>soon</span></div>
+      <div>
+        <p class="profile-name">小石暁子<span>Akiko KOISHI</span></p>
+        <p class="profile-lead">これまでの迷いや気づきをもとに、生徒さんから新たな発見をもらいながら、一人ひとりと向き合っています。</p>
+        <p class="history-label">経歴</p>
+        <div class="history-block">
+          <p class="history-line">5歳よりピアノを始める</p>
+          <p class="history-line">桐朋女子高校音楽科卒業後、同大学ピアノ科卒業</p>
+          <p class="history-line">フランスにてスコラ・カントルム音楽院上級ディプロマ取得</p>
+          <p class="history-line">小野繁代、金澤希伊子、ユージン・インジック、<br>マチェイ・ピクルスキー、ブルーノ・リグット各師のもとで学ぶ。</p>
+          <ul class="history-awards">
+            <li>日本ピアノ教育連盟オーディション 入選</li>
+            <li>クロード・カーン国際ピアノコンクール 第3位</li>
+            <li>ブレスト国際ピアノコンクール 第2位</li>
+            <li>全日本演奏家協会近現代音楽コンクール 入賞</li>
+          </ul>
         </div>
       </div>
     </div>
-    <div class="hero-overlay"></div>
   </div>
 </section>
 
-<!-- CONCEPT -->
-<section class="section concept" id="concept">
-  <div class="concept-text">
-    <p class="section-label">— Concept</p>
-    <h2>基礎が、自由をつくる。</h2>
-    <p>自分で音をコントロールできるようになるために、<br>
-    基礎をひとつずつ積み上げていきます。</p>
-    <p>気づいた瞬間、音は変わる。<br>
-    その変化は、偶然ではありません。</p>
-    <p>どんな動きがどんな音につながるのか。<br>
-    そのヒントを、一人ひとりに合わせて見つけていきます。</p>
-    <p>レッスンは一方通行ではなく、探求を共有する時間。<br>
-    音楽と向き合い、響きを深めていきます。<br>
-    深まるほどに、表現は自由になる。</p>
-    <p class="concept-closing">その響きが、誰かの心に届いていく。</p>
-  </div>
-  <div class="concept-stats">
-    <div class="stat-item"> 
-      <div class="stat-num">子どもから大人まで</div>
-      <div class="stat-label">対象年齢</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">年間45回</div>
-      <div class="stat-label">月謝制コース</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">完全個別</div>
-      <div class="stat-label">マンツーマン指導</div>
-    </div>
-  </div>
-</section>
+<!-- 料金 -->
+<section class="bg-off" id="price">
+  <div class="wrap">
+    <div class="section-title">料金</div>
 
-<!-- LESSON -->
-<section class="section lesson" id="lesson">
-  <p class="section-label">— Lesson</p>
-  <h2>レッスン内容</h2>
-  <div class="lesson-grid">
-    <div class="lesson-card">
-      <div class="lesson-num">01</div>
-      <h3>月謝制</h3>
-      <p>年間45回のレッスンコース。毎週決まったペースで通い、基礎から表現までを積み重ねていきます。練習の方向性や課題を一緒に整理しながら、音の変化を継続的に育てていきます。</p>
-      <div class="lesson-detail">
-        <span class="tag">年間45回</span>
-        <span class="tag">継続受講</span>
-        <span class="tag">全年齢</span>
+    <div class="price-block">
+      <div class="price-box">
+        <h3>月謝制</h3>
+        <p class="note">年間45回。毎週決まったペースで通い、継続的に音の変化を育てていくコースです。</p>
+        <table class="price-table">
+          <tr><th>時間</th><th>月謝</th></tr>
+          <tr><td>30分</td><td>¥9,000/月</td></tr>
+          <tr><td>45分</td><td>¥11,000/月</td></tr>
+          <tr><td>60分</td><td>¥13,000/月</td></tr>
+        </table>
       </div>
     </div>
-    <div class="lesson-card">
-      <div class="lesson-num">02</div>
-      <h3>1レッスン制</h3>
-      <p>都度予約、または月ごとの予約制。毎週通えない方、受験期などで回数を調整したい方、生活リズムに合わせたい方におすすめ。つまずいている部分への集中レッスンにも対応。</p>
-      <div class="lesson-detail">
-        <span class="tag">都度予約</span>
-        <span class="tag">柔軟対応</span>
-        <span class="tag">全年齢</span>
-      </div>
-    </div>
-    <div class="lesson-card">
-      <div class="lesson-num">03</div>
-      <h3>体験レッスン</h3>
-      <p>初めての方に。教室の雰囲気・先生との相性を確かめてからご入会いただけます。お気軽にどうぞ。</p>
-      <div class="lesson-detail">
-        <span class="tag">無料</span>
-        <span class="tag">随時受付</span>
-        <span class="tag">入会強制なし</span>
+
+    <div class="price-block">
+      <div class="price-box">
+        <h3>1レッスン制</h3>
+        <p class="note">都度予約、または月ごとの予約制。生活リズムや目的に合わせて自由に組み合わせられます。</p>
+        <table class="price-table">
+          <tr><th>時間</th><th>料金</th></tr>
+          <tr><td>45分</td><td>¥3,000/回</td></tr>
+          <tr><td>60分</td><td>¥4,000/回</td></tr>
+          <tr><td>90分</td><td>¥5,000/回</td></tr>
+        </table>
       </div>
     </div>
   </div>
 </section>
 
-<!-- PRICE -->
-<section class="section price" id="price">
-  <p class="section-label">— Price</p>
-  <h2>料金案内</h2>
-  <div class="price-block">
-    <div class="price-group">
-      <h3>月謝制</h3>
-      <p class="price-group-desc">年間45回。毎週決まったペースで通い、<br>継続的に音の変化を育てていくコースです。</p>
-      <table class="price-tbl">
-        <thead>
-          <tr>
-            <th>時間</th>
-            <th>月謝</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>30分</td>
-            <td>¥9,000<span>/月</span></td>
-          </tr>
-          <tr>
-            <td>45分</td>
-            <td>¥11,000<span>/月</span></td>
-          </tr>
-          <tr>
-            <td>60分</td>
-            <td>¥13,000<span>/月</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="price-group">
-      <h3>1レッスン制</h3>
-      <p class="price-group-desc">都度予約、または月ごとの予約制。<br>生活リズムや目的に合わせて自由に組み合わせられます。</p>
-      <table class="price-tbl">
-        <thead>
-          <tr>
-            <th>時間</th>
-            <th>料金</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>45分</td>
-            <td>¥3,000<span>/回</span></td>
-          </tr>
-          <tr>
-            <td>60分</td>
-            <td>¥4,000<span>/回</span></td>
-          </tr>
-          <tr>
-            <td>90分</td>
-            <td>¥5,000<span>/回</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- TEACHER -->
-<section class="teacher" id="teacher">
-  <div class="teacher-inner">
-    <div class="teacher-text">
-      <p class="section-label">— Teacher</p>
-      <h2>講師紹介</h2>
-      <p class="teacher-name-en">小石暁子<br>Akiko KOISHI</p>
-      <ul class="teacher-career">
-        <li>小野繁代、金澤希伊子、ユージン・インジック、マチェイ・ピクルスキー、ブルーノ・リグットの各氏に師事</li>
-        <li>桐朋女子高校音楽科卒業、桐朋学園大学ピアノ科卒業</li>
-        <li>フランス・パリ スコラ・カントルム音楽院上級コース修了</li>
-        <li>日本ピアノ教育連盟オーディション 入選</li>
-        <li>クロード・カーン国際ピアノコンクール 第3位</li>
-        <li>ブレスト国際ピアノコンクール 第2位</li>
-        <li>全日本演奏家協会近現代音楽コンクール 入賞</li>
-        <li>ピアノ指導歴15年〜</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section class="section gallery" id="gallery">
-  <p class="section-label">— Gallery</p>
-  <h2>教室の様子</h2>
-  <div class="gallery-grid">
-    <div class="gallery-item" data-label="Lesson">
-      <img src="images/3804.jpg" alt="レッスン風景" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-    <div class="gallery-item" data-label="Lesson">
-      <img src="images/3802.jpg" alt="レッスン風景" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-    <div class="gallery-item" data-label="Studio">
-      <img src="images/4028.jpg" alt="教室の様子" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-    <div class="gallery-item" data-label="Piano">
-      <img src="images/4030.jpg" alt="ピアノ" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-    <div class="gallery-item" data-label="Studio">
-      <img src="images/4022.jpg" alt="教室の様子" style="width:100%;height:100%;object-fit:cover;">
-    </div>
-  </div>
-</section>
-
-<!-- VOICE -->
-<section class="section voice" id="voice">
-  <p class="section-label">— Voice</p>
-  <h2>生徒さんの声</h2>
-  <div class="voice-grid">
-    <div class="voice-card">
-      <div class="voice-author">Mさん（小学1年生）保護者様</div>
-      <div class="voice-title">自分から音楽に向かう姿勢と、気持ちの変化</div>
-      <p>練習中の曲を楽譜通りに弾くだけではなく、自分なりに抑揚をつけてみたり、強弱をつけてみたり、いろいろ試して楽しんでいます。以前は声をかけないと練習できませんでしたが、最近は自分から練習するように。時には朝学校に行く前にも練習しています。</p>
-      <p style="margin-top:1rem;">レッスンを始めたばかりの頃は、うまく弾けないときにイライラして落ち込んでいましたが、何度も経験することで、つらい時期があっても乗り越えられると思えるようになりました。先生からの気持ちの切り替え方のアドバイスで、ピアノ以外のことでも前向きに考えられるようになってきました！</p>
-    </div>
-    <div class="voice-card">
-      <div class="voice-author">Mさん（小学2年生）保護者様</div>
-      <div class="voice-title">試行錯誤から、前に進む力へ</div>
-      <p>普段聴いている音楽を音階をつけて歌ってみたり、学校の音楽の授業にも自信を持って取り組んでいると先生から聞くことがあり、音楽を楽しんでいる様子がうかがえて嬉しく思っています。</p>
-      <p style="margin-top:1rem;">以前は上手く弾けないところがあると悔しくて泣いてしまうこともありましたが、今では「レッスンの時に先生に教えてもらおう」と気持ちを切り替えられるようになりました。思うようにいかない時でも、次に弾いてみたい曲という目標ができたことで、「今はそのためのステップなんだ」と前向きに捉え、チャレンジし続けられるようになってきました。</p>
-    </div>
-    <div class="voice-card">
-      <div class="voice-author">Iさん（中学2年生）</div>
-      <div class="voice-title">楽譜を読むだけだった演奏から、自分の感じる音楽へ</div>
-      <p>前は、楽譜をただ読んでいるだけのような弾き方だったけど、音楽の感じ方が変わり、自分の中で感じる音楽を弾きたいと思うようになった。新しい視点をもって、新しい練習方法や弾き方にチャレンジしてみようと思うようになった。音楽の表現の幅や、音色の幅が広がったと思う。</p>
-    </div>
-    <div class="voice-card">
-      <div class="voice-author">Jさん（高校2年生）</div>
-      <div class="voice-title">やりたい表現に、自分で近づけるように</div>
-      <p>自分がやりたい表現に近づけられるようになった。左手のメロディが好きになった。他の人の演奏を聞いたり、あえてテンポを下げて弾いてみる、という練習方法も身についた。</p>
+<!-- 写真ギャラリー -->
+<section class="bg-white">
+  <div class="wrap">
+    <div class="gallery-single">
+      <img src="images/lesson.jpg" alt="">
     </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="section faq" id="faq">
-  <p class="section-label">— FAQ</p>
-  <h2>よくある質問</h2>
-  <div class="faq-list">
+<section class="bg-off" id="faq">
+  <div class="wrap">
+    <div class="section-title">FAQ</div>
     <div class="faq-item">
-      <div class="faq-q">家にピアノがなくても大丈夫ですか？</div>
-      <div class="faq-a">ご自宅での練習が基礎をつくるのになによりも重要と考えています。上達の悦びを感じていただくためにも、ピアノまたは電子ピアノのご購入をおすすめいたします。</div>
+      <p class="faq-q">家にピアノがなくても大丈夫ですか？</p>
+      <p class="faq-a">ご自宅での練習が基礎をつくるのになによりも重要と考えています。上達の悦びを感じていただくためにも、ピアノまたは電子ピアノのご購入をおすすめいたします。</p>
     </div>
     <div class="faq-item">
-      <div class="faq-q">振替レッスンはできますか？</div>
-      <div class="faq-a">月謝制の方・月2〜3回コースの方は、レッスンの3日前までの欠席連絡が振替の対象となります。振替レッスンは欠席日から前後それぞれ1ヶ月以内を実施期限とし、振替の再振替はできません。</div>
+      <p class="faq-q">振替レッスンはできますか？</p>
+      <p class="faq-a">月謝制の方・月2〜3回コースの方は、レッスンの3日前までの欠席連絡が振替の対象となります。振替レッスンは欠席日から前後それぞれ1ヶ月以内を実施期限とし、振替の再振替はできません。</p>
     </div>
     <div class="faq-item">
-      <div class="faq-q">発表会はありますか？</div>
-      <div class="faq-a">1年半に1回を目処に発表会を開催いたします。参加は任意ですが、目標ができて上達が早くなる生徒さんが多いです。</div>
+      <p class="faq-q">発表会はありますか？</p>
+      <p class="faq-a">1年半に1回を目処に発表会を開催いたします。参加は任意ですが、目標ができて上達が早くなる生徒さんが多いです。</p>
     </div>
   </div>
 </section>
 
-<!-- ACCESS -->
-<section class="section access" id="access">
-  <p class="section-label">— Access</p>
-  <h2>アクセス</h2>
-  <div class="access-content">
-    <dl class="access-info">
-      <dt>教室名</dt>
-      <dd>こいし音楽教室</dd>
-      <dt style="font-size: 1.2em; font-weight: bold;">🎹 恋ヶ窪クラス</dt>
-<dd>国分寺市戸倉<br>
-（詳細はお問い合わせの際にご案内いたします）<br>
-「恋ヶ窪」駅から徒歩2分<br>
-駐車場　近隣のコインパーキングをご利用ください</dd>
-
-<dt style="font-size: 1.2em; font-weight: bold;">🎹 聖ヶ丘クラス</dt>
-<dd>多摩市聖ヶ丘<br>
-（詳細はお問い合わせの際にご案内いたします）<br>
-「聖蹟桜ヶ丘」駅からバス「ひじり坂」徒歩5分<br>
-「永山」駅から徒歩20分またはバス<br>
-「桜ヶ丘公園西口」徒歩3分<br>
-駐車場　あり（1台）</dd>
-      <dt>お問い合わせ</dt>
-      <dd><a href="mailto:akikaube@email.com" style="color:#6A4A36;">akikaube@gmail.com</a><br>080-3391-8960</dd>
-    </dl>
+<!-- アクセス -->
+<section class="bg-white" id="access">
+  <div class="wrap">
+    <div class="section-title">アクセス・お問い合わせ</div>
+    <div class="access-grid">
+      <div class="access-card">
+        <h3>こいし音楽教室</h3>
+        <p>🎹 恋ヶ窪クラス</p>
+        <p>国分寺市戸倉</p>
+        <p>（詳細はお問い合わせの際にご案内いたします）</p>
+        <p>「恋ヶ窪」駅から徒歩2分</p>
+        <p>駐車場　近隣のコインパーキングをご利用ください</p>
+      </div>
+      <div class="access-card">
+        <h3>🎹 聖ヶ丘クラス</h3>
+        <p>多摩市聖ヶ丘</p>
+        <p>（詳細はお問い合わせの際にご案内いたします）</p>
+        <p>「聖蹟桜ヶ丘」駅からバス「ひじり坂」徒歩5分</p>
+        <p>「永山」駅から徒歩20分またはバス「桜ヶ丘公園西口」徒歩3分</p>
+        <p>駐車場　あり（1台）</p>
+      </div>
+    </div>
+    <div class="contact-block">
+      <h3>お問い合わせ</h3>
+      <p>akikaube@gmail.com</p>
+      <p>080-3391-8960</p>
+    </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <span class="section-label">— Contact</span>
-  <h2>まずは、<br><em>体験レッスン</em>へ。</h2>
-  <p>お子さまの「弾いてみたい」という気持ちを、<br>大切に育てていきます。無料体験レッスン随時受付中。</p>
-  <div class="contact-btns">
-    <a href="tel:080-3391-8960" class="btn-gold">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-      体験レッスン予約
-    </a>
-    <a href="mailto:akikaube@gmail.com" class="btn-outline">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:6px"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      メールで問い合わせ
-    </a>
+<!-- CTA -->
+<section class="bg-off cta" id="cta">
+  <div class="wrap">
+    <div class="cta-buttons">
+      <a href="#" class="btn">体験レッスン予約</a>
+      <a href="#" class="btn">メールで問い合わせ</a>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<!-- フッター -->
 <footer>
-  <div class="footer-logo">こいし音楽教室</div>
-  <div class="footer-copy">&copy; 2026 こいし音楽教室. All rights reserved.</div>
+  <p class="footer-logo">こいし音楽教室</p>
+  <p>© 2026 こいし音楽教室. All rights reserved.</p>
 </footer>
 
 <script>
-// iOS含む全ブラウザ対応スクリプト
-(function() {
-  function ready(fn) {
-    if (document.readyState !== 'loading') {
-      fn();
-    } else {
-      document.addEventListener('DOMContentLoaded', fn);
-    }
+  const menuBtn = document.getElementById('menuBtn');
+  const navPanel = document.getElementById('navPanel');
+  const overlay = document.getElementById('overlay');
+
+  function toggleMenu(){
+    menuBtn.classList.toggle('open');
+    navPanel.classList.toggle('open');
+    overlay.classList.toggle('open');
   }
-
-  ready(function() {
-
-    // ── ハンバーガーメニュー ──
-    var hamburger = document.getElementById('hamburger');
-    var mobileMenu = document.getElementById('mobileMenu');
-
-    if (hamburger && mobileMenu) {
-      ['click', 'touchend'].forEach(function(evt) {
-        hamburger.addEventListener(evt, function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          var isOpen = mobileMenu.classList.contains('open');
-          if (isOpen) {
-            mobileMenu.classList.remove('open');
-            hamburger.classList.remove('open');
-          } else {
-            mobileMenu.classList.add('open');
-            hamburger.classList.add('open');
-          }
-        }, { passive: false });
-      });
-
-      var menuLinks = mobileMenu.querySelectorAll('a');
-      for (var i = 0; i < menuLinks.length; i++) {
-        menuLinks[i].addEventListener('click', function() {
-          mobileMenu.classList.remove('open');
-          hamburger.classList.remove('open');
-        });
-      }
-    }
-
-    // ── FAQアコーディオン ──
-    var faqItems = document.querySelectorAll('.faq-item');
-    for (var j = 0; j < faqItems.length; j++) {
-      (function(item) {
-        ['click', 'touchend'].forEach(function(evt) {
-          item.addEventListener(evt, function(e) {
-            e.preventDefault();
-            if (item.classList.contains('open')) {
-              item.classList.remove('open');
-            } else {
-              item.classList.add('open');
-            }
-          }, { passive: false });
-        });
-      })(faqItems[j]);
-    }
-
-  });
-})();
+  menuBtn.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+  navPanel.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
 </script>
 
 </body>
