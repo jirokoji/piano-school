@@ -136,7 +136,7 @@
   /* ===== ヒーロー ===== */
   .hero{
     min-height:88vh;
-    background:#dcd5cd url('https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    background:#dcd5cd url('images/hero.jpg') center/cover no-repeat;
     display:flex;
     align-items:center;
     padding:0 24px;
@@ -292,6 +292,22 @@
     aspect-ratio:3/4;
     object-fit:cover;
     background:var(--line);
+  }
+  .profile-photo-placeholder{
+    width:100%;
+    aspect-ratio:3/4;
+    background:var(--offwhite);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+  }
+  .profile-photo-placeholder span{
+    font-family:var(--serif);
+    font-size:0.78rem;
+    letter-spacing:0.08em;
+    color:var(--accent);
   }
   .profile-name{
     font-family:var(--serif);
@@ -532,7 +548,7 @@
 <!-- 写真＋一文 -->
 <section class="photo-quote" style="background:#FFFEF9;">
   <div class="wrap photo-quote-inner">
-    <img class="photo-quote-img" src="https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?q=80&w=1200&auto=format&fit=crop" alt="">
+    <img class="photo-quote-img" src="images/concept.jpg" alt="">
     <div class="photo-quote-text">
       <p>その「できた」が、<br>少しずつ<br>自信に変わっていく。</p>
     </div>
@@ -596,7 +612,7 @@
   <div class="wrap">
     <div class="section-title">講師プロフィール</div>
     <div class="profile">
-      <img class="profile-photo" src="https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=800&auto=format&fit=crop" alt="講師写真">
+      <div class="profile-photo-placeholder"><span>Coming<br>soon</span></div>
       <div>
         <p class="profile-name">音楽花子<span>Hanako ONGAKU</span></p>
         <p class="profile-lead">これまでの迷いや気づきをもとに、生徒さんから新たな発見をもらいながら、一人ひとりと向き合っています。</p>
@@ -655,7 +671,7 @@
 <section class="bg-white">
   <div class="wrap">
     <div class="gallery-single">
-      <img src="https://images.unsplash.com/photo-1466442929976-97f336a657be?q=80&w=1200&auto=format&fit=crop" alt="">
+      <img src="images/lesson.jpg" alt="">
     </div>
   </div>
 </section>
